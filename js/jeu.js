@@ -11,6 +11,7 @@ function lancementJeu (canvas, ctx) {
 
 	// Initialisation de la variable du jeu
 	var gameOver = 0;
+	var finNiveau = 0;
 
 	// Chargement de l'image du char
 	var imageChar = new Image();
@@ -64,6 +65,16 @@ function lancementJeu (canvas, ctx) {
 
 			tank.posX += 10;
 		}
+
+		if (tank.posX <= 0) {
+
+			tank.posX = 0;
+		}
+
+		if (tank.posX >= 565) {
+
+			tank.posX = 565;
+		}
 	}
 
 	function collision () {
@@ -89,13 +100,22 @@ function lancementJeu (canvas, ctx) {
 
 	function rendu () {
 
-		if (gameOver == 0)
-		{
+		if (gameOver == 0 && finNiveau == 0) {
+			
 			requestAnimFrame(rendu);
 		}
-		else
-		{
-			alert("Game Over");
+		
+		else {
+
+			if (gameOver == 1) {
+
+				alert("Game Over");
+			}
+
+			else {
+
+				alert("Bravo tu as réussi le niveau");
+			}
 		}
 
 		// Netoyage de canvas
@@ -114,6 +134,11 @@ function lancementJeu (canvas, ctx) {
 		ctx.drawImage(imageChar, 0, 0, 35, 80, tank.posX, tank.posY, 35, 80);
 
 		collision();
+
+		if (tank.posY <= -40 ) {
+
+			finNiveau = 1;
+		}
 	}
 
 
