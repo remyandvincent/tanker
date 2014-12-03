@@ -28,12 +28,12 @@ function lancementJeu (canvas, ctx) {
 
 		if (ev.keyCode == 37) {
 
-			tank.positionX -= 10;
+			tank.posX -= 10;
 		}
 
 		if (ev.keyCode == 39) {
 
-			tank.positionX += 10;
+			tank.posX += 10;
 		}
 	}
 
