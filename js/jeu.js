@@ -24,6 +24,9 @@ function lancementJeu (canvas, ctx) {
 		vitesse : 1
 	}
 
+	// Création des mines
+	var mines = creationDesMines();
+
 	// Initalisation des évenements
 	document.addEventListener("keydown", deplacementTank, false);
 
