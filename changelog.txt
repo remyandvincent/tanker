@@ -1,0 +1,4 @@
+03/12/2014 Version 1.0
+======================
+* Sortie de la première version du jeu Tanker.
+* Le jeu dispose actuellement d'un niveau.
