@@ -70,14 +70,14 @@ function lancementJeu (canvas, ctx) {
 		// Mouvement automatique vers l'avant du char
 		tank.posY -= tank.vitesse;
 
-		// On dessine le char à sa nouvelle position
-		ctx.drawImage(imageChar, 0, 0, 35, 80, tank.posX,tank.posY, 35, 80);
-
 		// On dessine les mines
 		for (var i = 0; i < mines.length; i++) {
 
 			ctx.drawImage(image, 0, 0, 20, 20, mines[i].posX,mines[i].posY, 20, 20);
 		}
+
+		// On dessine le char à sa nouvelle position
+		ctx.drawImage(imageChar, 0, 0, 35, 80, tank.posX,tank.posY, 35, 80);
 	}
 
 	// Lancement de la bloucle de rendu
