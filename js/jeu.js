@@ -39,8 +39,8 @@ function lancementJeu (canvas, ctx) {
 		for (var i = 0; i < 15; i++) {
 
 			var mine = {
-				posX : Math.random(Math.floor() * 695),
-				posY : Math.random(Math.floor() * 700)
+				posX : Math.floor(Math.random() * 570 + 10),
+				posY : Math.floor(Math.random() * 700)
 			};
 
 			mines.push(mine);
@@ -76,11 +76,11 @@ function lancementJeu (canvas, ctx) {
 		// On dessine les mines
 		for (var i = 0; i < mines.length; i++) {
 
-			ctx.drawImage(image, 0, 0, 20, 20, mines[i].posX,mines[i].posY, 20, 20);
+			ctx.drawImage(imageMine, 0, 0, 20, 20, mines[i].posX, mines[i].posY, 20, 20);
 		}
 
 		// On dessine le char à sa nouvelle position
-		ctx.drawImage(imageChar, 0, 0, 35, 80, tank.posX,tank.posY, 35, 80);
+		ctx.drawImage(imageChar, 0, 0, 35, 80, tank.posX, tank.posY, 35, 80);
 	}
 
 	// Lancement de la bloucle de rendu
