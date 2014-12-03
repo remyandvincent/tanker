@@ -13,6 +13,10 @@ function lancementJeu (canvas, ctx) {
 	var imageChar = new Image();
 		imageChar.src = "img/char.png";
 
+	// Chargement de l'image des mines
+	var imageMine = new Image();
+		imageMine.src = "img/mine.png";
+
 	// Création du tank
 	var tank = {
 		posX : 280,
@@ -22,6 +26,25 @@ function lancementJeu (canvas, ctx) {
 
 	// Initalisation des évenements
 	document.addEventListener("keydown", deplacementTank, false);
+
+	// Fonctionnalités du jeu
+
+	function creationDesMines() {
+
+		var mines = [];
+
+		for (var i = 0; i < 15; i++) {
+
+			var mine = {
+				posX : Math.random(Math.floor() * 695),
+				posY : Math.random(Math.floor() * 700)
+			};
+
+			mines.push(mine);
+		}
+
+		return mines;
+	}
 
 
 	function deplacementTank( ev ) {
@@ -47,8 +70,14 @@ function lancementJeu (canvas, ctx) {
 		// Mouvement automatique vers l'avant du char
 		tank.posY -= tank.vitesse;
 
-		// On dessine le char
+		// On dessine le char à sa nouvelle position
 		ctx.drawImage(imageChar, 0, 0, 35, 80, tank.posX,tank.posY, 35, 80);
+
+		// On dessine les mines
+		for (var i = 0; i < mines.length; i++) {
+
+			ctx.drawImage(image, 0, 0, 20, 20, mines[i].posX,mines[i].posY, 20, 20);
+		}
 	}
 
 	// Lancement de la bloucle de rendu
