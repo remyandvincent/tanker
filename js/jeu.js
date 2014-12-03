@@ -9,6 +9,9 @@ Script : jeu
 
 function lancementJeu (canvas, ctx) {
 
+	// Initialisation de la variable du jeu
+	var gameOver = 0;
+
 	// Chargement de l'image du char
 	var imageChar = new Image();
 		imageChar.src = "img/char.png";
@@ -63,9 +66,37 @@ function lancementJeu (canvas, ctx) {
 		}
 	}
 
+	function collision () {
+
+		var hMine = 20;
+		var lMine = 20;
+
+		var hChar = 80;
+		var lChar = 35;
+
+		for (var i = 0; i < mines.length; i++) {
+			
+			if((mines[i].posX >= tank.posX + lChar)		// trop à droite
+			|| (mines[i].posX + lMine <= tank.posX)		// trop à gauche
+			|| (mines[i].posY >= tank.posY + hChar)		// trop en bas
+			|| (mines[i].posY + hMine <= tank.posY))	// trop en haut
+		    	gameOver = gameOver;
+		    else
+		    	gameOver = 1;
+
+  		};
+	}
+
 	function rendu () {
 
-		requestAnimFrame(rendu);
+		if (gameOver == 0)
+		{
+			requestAnimFrame(rendu);
+		}
+		else
+		{
+			alert("Game Over");
+		}
 
 		// Netoyage de canvas
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -81,7 +112,11 @@ function lancementJeu (canvas, ctx) {
 
 		// On dessine le char à sa nouvelle position
 		ctx.drawImage(imageChar, 0, 0, 35, 80, tank.posX, tank.posY, 35, 80);
+
+		collision();
 	}
+
+
 
 	// Lancement de la bloucle de rendu
 	rendu();
