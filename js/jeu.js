@@ -12,6 +12,9 @@ function lancementJeu (canvas, ctx) {
 	// Initialisation de la variable du jeu
 	var gameOver = 0;
 	var finNiveau = 0;
+	var mines = [];
+	var tank;
+	var niveau = 1;
 
 	// Chargement de l'image du char
 	var imageChar = new Image();
@@ -21,36 +24,68 @@ function lancementJeu (canvas, ctx) {
 	var imageMine = new Image();
 		imageMine.src = "img/mine.png";
 
-	// Création du tank
-	var tank = {
-		posX : 280,
-		posY : 780,
-		vitesse : 1
-	}
-
-	// Création des mines
-	var mines = creationDesMines();
+	// Starter
+	starter();
 
 	// Initalisation des évenements
 	document.addEventListener("keydown", deplacementTank, false);
 
 	// Fonctionnalités du jeu
+	
+	function starter() {
+
+		var debut = 6;
+
+		var timer = setInterval(function(){
+
+			ctx.clearRect(0, 0, 600, 800);
+
+			debut--;
+
+			ctx.font="20px Arial";
+			ctx.fillText("Vous serez dans votre tank dans " + debut + " secondes.", 10, 50);
+			ctx.fillText("Tenez vous pret soldat !", 10, 80);
+
+			if (debut == 0) {
+
+				clearInterval(timer);
+
+				creationDuNiveau();
+			}
+
+		}, 1000);
+	}
+
+	function creationDuNiveau() {
+
+		// Création du tank
+		tank = {
+			posX : 280,
+			posY : 780,
+			vitesse : 1.5 + niveau / 2
+		}
+
+		// Création des mines
+		creationDesMines();
+
+		// Lancement de la bloucle de rendu
+		rendu();
+	}
+
 
 	function creationDesMines() {
 
-		var mines = [];
+		mines = [];
 
-		for (var i = 0; i < 15; i++) {
+		for (var i = 0; i < 8 + niveau * 2; i++) {
 
 			var mine = {
 				posX : Math.floor(Math.random() * 570 + 10),
-				posY : Math.floor(Math.random() * 700)
+				posY : Math.floor(Math.random() * 600)
 			};
 
 			mines.push(mine);
 		}
-
-		return mines;
 	}
 
 
@@ -110,11 +145,21 @@ function lancementJeu (canvas, ctx) {
 			if (gameOver == 1) {
 
 				alert("Game Over");
+
+				niveau = 1;
+
+				gameOver = 0;
+
+				creationDuNiveau();
 			}
 
 			else {
 
-				alert("Bravo tu as réussi le niveau");
+				niveau++;
+
+				finNiveau = 0;
+
+				creationDuNiveau();
 			}
 		}
 
@@ -140,9 +185,4 @@ function lancementJeu (canvas, ctx) {
 			finNiveau = 1;
 		}
 	}
-
-
-
-	// Lancement de la bloucle de rendu
-	rendu();
 }
