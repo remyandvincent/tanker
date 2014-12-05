@@ -31,10 +31,37 @@ function lancementJeu (canvas, ctx) {
 	// Création des mines
 	var mines = creationDesMines();
 
+	// Starter
+	starter();
+
 	// Initalisation des évenements
 	document.addEventListener("keydown", deplacementTank, false);
 
 	// Fonctionnalités du jeu
+	
+	function starter() {
+		
+		var debut = 6;
+
+		var timer = setInterval(function(){
+
+			ctx.clearRect(0, 0, 600, 800);
+
+			debut--;
+
+			ctx.font="20px Arial";
+			ctx.fillText("Vous serez dans votre tank dans " + debut + " secondes.", 10, 50);
+			ctx.fillText("Tenez vous pret soldat !", 10, 80);
+
+			if (debut == 0) {
+
+				clearInterval(timer);
+
+					rendu();
+			}
+
+		}, 1000);
+	}
 
 	function creationDesMines() {
 
@@ -140,9 +167,4 @@ function lancementJeu (canvas, ctx) {
 			finNiveau = 1;
 		}
 	}
-
-
-
-	// Lancement de la bloucle de rendu
-	rendu();
 }
