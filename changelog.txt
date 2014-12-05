@@ -2,3 +2,10 @@
 ======================
 * Sortie de la première version du jeu Tanker.
 * Le jeu dispose actuellement d'un niveau.
+
+
+05/12/2014 Version 2.0
+======================
+* Ajout des différents niveaux.
+* Augmentation de la vitesse et du nombre de mines en fonction du niveau.
+* Ajout d'un timer de lancement.
