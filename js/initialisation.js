@@ -1,7 +1,7 @@
 /*
 
 Titre : Tanker
-Version : 1.0
+Version : 2.0
 Auteur : RemyAndVincent
 Script : initalisation
 
