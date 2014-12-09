@@ -1,3 +1,12 @@
+09/12/2014 Version 3.0
+======================
+* Ajout du background.
+* Ajout du message de fin de partie.
+* Amélioration du visuelle (ajout d'un "tableau de bord").
+* Amélioration des messages globaux du jeu.
+* Amélioration de la fluidité du déplacement du tank.
+* Le jeu s'adapte désormais à la taille de l'écran.
+
 05/12/2014 Version 2.0
 ======================
 * Ajout des différents niveaux.
