@@ -100,6 +100,20 @@ var Tanker = {
           break;
 
         case "CONSTRUCTION_MAP" :
+                    
+          creationChar();
+
+          creationMines();
+
+          if (niveau == 1) {
+
+            ETAT_JEU = "CHRONO";
+          }
+
+          else {
+
+            ETAT_JEU = "EN_JEU";
+          }
 
           break;
 
@@ -121,6 +135,48 @@ var Tanker = {
       }
 
       requestAnimFrame(controleJeu);
+    }
+
+    function creationMines() {
+
+      mines = [];
+
+      for (var i = 0; i < 5 + niveau; i++) {
+          
+          var mine = {
+            posX : Math.floor(Math.random() * (canvas.width - 40) + 10),
+            posY : Math.floor(Math.random() * (canvas.height - 220))
+          };
+
+          mines.push(mine); 
+      }
+    }
+
+    function creationChar() {
+
+      if (niveau == 1) {
+
+        tank = {
+            gauche : false,
+            droite : false,
+            posX : Math.floor(canvas.width / 2) - 17,
+            posY : canvas.height - 40,
+            vitesse : 1
+        }
+      }
+
+      else {
+
+        var ancienTank = tank;
+
+        tank = {
+            gauche : ancienTank.gauche,
+            droite : ancienTank.droite,
+            posX : ancienTank.posX,
+            posY : canvas.height - 40,
+            vitesse : 1 + (niveau / 4)
+        }
+      }
     }
 
     function messageDuJeu() {
@@ -160,7 +216,6 @@ var Tanker = {
             ETAT_JEU = "CONSTRUCTION_MAP";
           }
         }
-
       }, false);
 
     }
