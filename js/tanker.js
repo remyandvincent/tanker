@@ -143,9 +143,13 @@ var Tanker = {
 
         case "TERMINE" :
 
+          messageDuJeu();
+
           break;
 
         case "AUCUN" :
+
+          messageDuJeu();
 
           break;
       }
@@ -242,6 +246,32 @@ var Tanker = {
         bouton2.textContent = "Non";
       }
 
+      if(ETAT_JEU == "TERMINE") {
+
+        message.style.display = "block";
+        bouton1.style.display = "inline-block";
+        bouton2.style.display = "inline-block";
+
+        canvas.style.display = "none";
+        infos.style.display = "none";
+        
+        message.textContent = "Souhaitez-vous recommencer une nouvelle partie ?";
+        bouton1.textContent = "Oui";
+        bouton2.textContent = "Non";
+      }
+
+      if(ETAT_JEU == "AUCUN") {
+
+        canvas.style.display = "none";
+        infos.style.display = "none";
+        
+        message.textContent = "Merci d'avoir joué à Tanker !";
+        message.style.display = "block";
+
+        bouton1.style.display = "none";
+        bouton2.style.display = "none";
+      }
+
       document.addEventListener("click", function(ev) {
 
         if(ETAT_JEU == "LANCEMENT") {
@@ -258,7 +288,42 @@ var Tanker = {
             ETAT_JEU = "CONSTRUCTION_MAP";
           }
         }
+
+        if(ETAT_JEU == "TERMINE") {
+          
+          if (ev.target.textContent == "Oui") {
+
+            niveau = 1;
+
+            var etat_char = document.getElementById("etat_char");
+            var vitesse_char = document.getElementById("vitesse_char");
+            var mines_evitees = document.getElementById("mines_evitees");
+            var niveau_actuel = document.getElementById("niveau_actuel");
+
+            etat_char.textContent = "Etat du char : 100%";
+            vitesse_char.textContent = "Vitesse : 10 km/h";
+            mines_evitees.textContent = "Nombre de mines évitées : 0";
+            niveau_actuel.textContent = "Niveau : 1";
+
+            message.style.display = "none";
+            bouton1.style.display = "none";
+            bouton2.style.display = "none";
+
+            canvas.style.display = "block";
+            infos.style.display = "block";
+
+            ETAT_JEU = "CONSTRUCTION_MAP";
+
+          }
+
+          if (ev.target.textContent == "Non") {
+
+            ETAT_JEU = "AUCUN";
+          }
+        }
+
       }, false);
+
     }
 
     function starter() {
@@ -347,6 +412,22 @@ var Tanker = {
       }
     }
 
+    function miseAjourInfos() {
+
+      var etat_char = document.getElementById("etat_char");
+      var vitesse_char = document.getElementById("vitesse_char");
+      var mines_evitees = document.getElementById("mines_evitees");
+      var niveau_actuel = document.getElementById("niveau_actuel");
+
+      var evitees = (niveau - 1) * (4 + (niveau - 1)) + 1;
+      var vitesse = niveau * 5 + 5;
+
+      etat_char.textContent = "Etat du char : 100%";
+      vitesse_char.textContent = "Vitesse : " + vitesse + " km/h";
+      mines_evitees.textContent = "Nombre de mines évitées : " + evitees;
+      niveau_actuel.textContent = "Niveau : " + niveau;
+    }
+
     function rendu () {
 
       // Nettoyage du canvas
@@ -361,5 +442,6 @@ var Tanker = {
       // On dessine le char
       ctx.drawImage(imageChar, 0, 0, 35, 80, tank.posX, tank.posY, 35, 80);
     }
+    // Fin des fonctions
   }
 };
