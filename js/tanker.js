@@ -83,6 +83,10 @@ var Tanker = {
     var imageMine = new Image();
         imageMine.src = "img/mine.png";
 
+    // Création des évènements
+    document.addEventListener("keydown", cliqueEnfonce, false);
+    document.addEventListener("keyup", cliqueRelache, false);
+
     controleJeu();
 
     // Début des fonctions
@@ -119,9 +123,21 @@ var Tanker = {
 
         case "CHRONO" :
 
+          if (lancementTimer == 0) {
+
+            lancementTimer = 1;
+            starter();
+          }
+
           break;
 
         case "EN_JEU" :
+
+          deplacementChar();
+
+          collision();
+
+          rendu();
 
           break;
 
@@ -179,6 +195,32 @@ var Tanker = {
       }
     }
 
+    function cliqueEnfonce( ev ) {
+
+      if (ev.keyCode == 37) {
+
+        tank.gauche = true;
+      }
+
+      if (ev.keyCode == 39) {
+
+        tank.droite = true;
+      }
+    }
+
+    function cliqueRelache( ev ) {
+
+      if (ev.keyCode == 37) {
+
+        tank.gauche = false;
+      }
+
+      if (ev.keyCode == 39) {
+
+        tank.droite = false;
+      }
+    }
+
     function messageDuJeu() {
 
       var canvas = document.getElementById("canvas");
@@ -217,7 +259,108 @@ var Tanker = {
           }
         }
       }, false);
-
     }
+
+    function starter() {
+
+      var debut = 6;
+
+      var timer = setInterval(function(){
+
+        debut--;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font="20px Arial";
+        ctx.fillStyle="white";
+        ctx.fillText("Vous serez dans votre tank dans " + debut + " secondes.", canvas.width / 2 - 195, canvas.height / 2 - 20);
+        ctx.fillText("Tenez vous prêt soldat !", canvas.width / 2 - 100, canvas.height / 2 + 20);
+
+        if (debut == 0) {
+
+          clearInterval(timer);
+
+          lancementTimer = 0;
+
+          ETAT_JEU = "EN_JEU";
+        }
+
+      }, 1000);
+    }
+
+    function collision () {
+
+      var hMine = 20;
+      var lMine = 20;
+
+      var hChar = 80;
+      var lChar = 35;
+
+      for (var i = 0; i < mines.length; i++) {
+        
+        if((mines[i].posX >= tank.posX + lChar)   // trop à droite
+        || (mines[i].posX + lMine <= tank.posX)   // trop à gauche
+        || (mines[i].posY >= tank.posY + hChar)   // trop en bas
+        || (mines[i].posY + hMine <= tank.posY)) { // trop en haut
+            
+        }
+
+        else {
+
+          ETAT_JEU = "TERMINE";
+        }
+      }
+    }
+
+    function deplacementChar() {
+
+      tank.posY -= tank.vitesse;
+
+      if (tank.gauche == true) {
+
+        tank.posX -= 5;
+      }
+
+      if (tank.droite == true) {
+
+        tank.posX += 5;
+      }
+
+      if (tank.posX <= 0) {
+
+        tank.posX = 0;
+      }
+
+      if (tank.posX >= canvas.width - 35) {
+
+        tank.posX = canvas.width - 35;
+      }
+
+      // Fin du niveau
+      if (tank.posY <= -40 ) {
+
+        niveau++;
+
+        miseAjourInfos();
+
+        ETAT_JEU = "CONSTRUCTION_MAP";
+      }
+    }
+
+    function rendu () {
+
+      // Nettoyage du canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // On dessine les mines
+      for (var i = 0; i < mines.length; i++) {
+
+        ctx.drawImage(imageMine, 0, 0, 20, 20, mines[i].posX, mines[i].posY, 20, 20);
+      }
+
+      // On dessine le char
+      ctx.drawImage(imageChar, 0, 0, 35, 80, tank.posX, tank.posY, 35, 80);
+    }
+    // Fin des fonctions
   }
 };
