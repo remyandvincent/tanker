@@ -119,6 +119,12 @@ var Tanker = {
 
         case "CHRONO" :
 
+          if (lancementTimer == 0) {
+
+            lancementTimer = 1;
+            starter();
+          }
+
           break;
 
         case "EN_JEU" :
@@ -218,6 +224,33 @@ var Tanker = {
         }
       }, false);
 
+    }
+
+    function starter() {
+
+      var debut = 6;
+
+      var timer = setInterval(function(){
+
+        debut--;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font="20px Arial";
+        ctx.fillStyle="white";
+        ctx.fillText("Vous serez dans votre tank dans " + debut + " secondes.", canvas.width / 2 - 195, canvas.height / 2 - 20);
+        ctx.fillText("Tenez vous prêt soldat !", canvas.width / 2 - 100, canvas.height / 2 + 20);
+
+        if (debut == 0) {
+
+          clearInterval(timer);
+
+          lancementTimer = 0;
+
+          ETAT_JEU = "EN_JEU";
+        }
+
+      }, 1000);
     }
   }
 };
