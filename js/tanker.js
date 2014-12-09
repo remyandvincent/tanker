@@ -95,10 +95,12 @@ var Tanker = {
         
         case "LANCEMENT" :
 
+          messageDuJeu();
+
           break;
 
         case "CONSTRUCTION_MAP" :
-                    
+
           break;
 
         case "CHRONO" :
@@ -119,6 +121,48 @@ var Tanker = {
       }
 
       requestAnimFrame(controleJeu);
+    }
+
+    function messageDuJeu() {
+
+      var canvas = document.getElementById("canvas");
+
+      var infos = document.getElementById("infos");
+
+      var message = document.getElementById("message");
+          message.style.marginTop = window.innerHeight / 2 - 60 + "px";
+
+      var bouton1 = document.getElementById("bouton1");
+          bouton1.style.marginLeft = window.innerWidth / 2 - 201 + "px";
+
+      var bouton2 = document.getElementById("bouton2");
+
+      if(ETAT_JEU == "LANCEMENT") {
+
+        message.textContent = "Soldat êtes-vous prêt à survivre ?";
+        bouton1.textContent = "Oui";
+        bouton2.textContent = "Non";
+      }
+
+      document.addEventListener("click", function(ev) {
+
+        if(ETAT_JEU == "LANCEMENT") {
+
+          if (ev.target.textContent == "Oui") {
+
+            message.style.display = "none";
+            bouton1.style.display = "none";
+            bouton2.style.display = "none";
+
+            canvas.style.display = "block";
+            infos.style.display = "block";
+
+            ETAT_JEU = "CONSTRUCTION_MAP";
+          }
+        }
+
+      }, false);
+
     }
   }
 };
