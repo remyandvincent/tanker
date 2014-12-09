@@ -1,11 +1,11 @@
-<!--
-
-Titre : Tanker
-Version : 2.0
-Auteur : RemyAndVincent
-Page d'accueil
-
--->
+<!--                            */
+/*                              */
+/* Jeu         : Tanker         */
+/* Version     : 3.0            */
+/* Developpeur : remyandvincent */
+/* Partie      : html           */
+/*                              */
+/*                             -->
 
 <!DOCTYPE html>
 
@@ -17,24 +17,45 @@ Page d'accueil
 
 	<title>Tanker</title>
 
-	<script type="text/javascript" src="js/initialisation.js"></script>
-	<script type="text/javascript" src="js/jeu.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<script type="text/javascript" src="js/tanker.js"></script>
 
 </head>
 
 <body>
+	
+	<canvas id="canvas" width="0" height="0">
 
-	<div id="bienvenue">
+		Votre navigateur ne supporte pas la technologie canvas, vous pouvez mettre à jour votre navigateur ou utiliser un navigateur compatible.
 
-		<p>Soldat Bryan ! Vous êtes le dernier survivant de votre escouade, vous DEVEZ sauver votre peau, pour la gloire de la nation !</p>
+	</canvas>
+
+	<div id="infos">
+
+		<img src="img/tankiste.png" alt="Image d'un conducteur de char">
+
+		<h1>Sgt Bryan Lopez</h1>
+
+		<div></div>
+
+		<p id="etat_char">Etat du char : 100%</p>
+
+		<p id="vitesse_char">Vitesse : 10 km/h</p>
+
+		<p id="mines_evitees">Nombre de mines passés : 0</p>
+
+		<p id="niveau_actuel">Niveau : 1</p>
 
 	</div>
 
-	<canvas id="canvas" width="600px" height="800px" style="border:solid 1px black">
+	<div id="message">
 
-		Votre navigateur ne supporte pas cette technologie, vous pouvez mettre à jour votre navigateur ou utiliser un navigateur compatible.
+	</div>
 
-	</canvas>
+	<button id="bouton1" class="bouton"></button>
+
+	<button id="bouton2" class="bouton"></button>	
 
 </body>
 
